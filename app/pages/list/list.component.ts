@@ -73,4 +73,14 @@ export class ListComponent implements OnInit {
             .trim();
         SocialShare.shareText(listString);
     }
+
+    remove(grocery: Grocery) {
+
+        this.groceryListService
+            .delete(grocery.id)
+            .subscribe(
+                () => this.groceryList.splice(this.groceryList.indexOf(grocery), 1),
+                () => alert('An error occurred while removing an item to your list.')
+            )
+    }
 }

@@ -24,3 +24,10 @@ ListView {
 TextField {
   color: white;
 }
+
+.remove-button {
+  margin: 5;
+  padding-left: 10;
+  padding-right: 10;
+  background-color: #ccc;
+}
