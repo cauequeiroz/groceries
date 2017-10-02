@@ -5,6 +5,9 @@ import { Router } from '@angular/router';
 import { Page } from 'ui/page';
 import { Color } from 'color';
 import { View } from 'ui/core/view';
+import { TextField } from 'ui/text-field';
+import { setHintColor } from '../../utils/hint-util';
+
 
 @Component({
   selector: "my-app",
@@ -20,6 +23,8 @@ export class LoginComponent implements OnInit {
     private router: Router;
     private page: Page;
     @ViewChild('container') container: ElementRef;
+    @ViewChild('email') email: ElementRef;
+    @ViewChild('password') password: ElementRef;
 
     constructor(userService: UserService, router: Router, page: Page) {
 
@@ -77,6 +82,7 @@ export class LoginComponent implements OnInit {
     toggleDisplay() {
 
         this.isLoggingIn = !this.isLoggingIn;
+        this.setTextFieldColors();
 
         let container = <View>this.container.nativeElement;
         container.animate({
@@ -84,4 +90,18 @@ export class LoginComponent implements OnInit {
             duration: 200
         });
     }
+
+    setTextFieldColors() {
+        let emailTextField = <TextField>this.email.nativeElement;
+        let passwordTextField = <TextField>this.password.nativeElement;
+
+        let mainTextColor = new Color(this.isLoggingIn ? "black" : "#C4AFB4");
+        let hintColor = new Color(this.isLoggingIn ? "#ACA6A7" : "#C4AFB4");
+
+        emailTextField.color = mainTextColor;
+        passwordTextField.color = mainTextColor;
+
+        setHintColor({ view: emailTextField, color: hintColor });
+        setHintColor({ view: passwordTextField, color: hintColor });
+      }
 }
